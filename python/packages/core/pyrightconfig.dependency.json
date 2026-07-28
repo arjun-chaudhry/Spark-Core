@@ -1,0 +1,11 @@
+{
+    "extends": "../../pyproject.toml",
+    "include": [
+        "spark_core/*.py",
+        "spark_core/_harness",
+        "spark_core/_workflows"
+    ],
+    "exclude": [
+        "spark_core/_harness/_agent.py"
+    ]
+}

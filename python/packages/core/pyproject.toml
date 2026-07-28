@@ -1,0 +1,148 @@
+[project]
+name = "spark-core-core"
+description = "Spark Core for building AI Agents with Python. This is the core package that has all the core abstractions and implementations."
+authors = [{ name = "Microsoft", email = "af-support@microsoft.com"}]
+readme = "README.md"
+requires-python = ">=3.10"
+version = "1.12.1"
+license-files = ["LICENSE"]
+urls.homepage = "https://aka.ms/spark-core"
+urls.source = "https://github.com/microsoft/spark-core/tree/main/python"
+urls.release_notes = "https://github.com/microsoft/spark-core/releases?q=tag%3Apython-1&expanded=true"
+urls.issues = "https://github.com/microsoft/spark-core/issues"
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+dependencies = [
+    "typing-extensions>=4.15.0,<5",
+    "pydantic>=2,<3",
+    "python-dotenv>=1,<2",
+    "opentelemetry-api>=1.39.0,<2",
+]
+
+[project.optional-dependencies]
+all = [
+    "mcp>=1.24.0,<2",
+    "spark-core-a2a",
+    "spark-core-ag-ui",
+    "spark-core-anthropic",
+    "spark-core-azure-ai-search",
+    "spark-core-azure-contentunderstanding",
+    "spark-core-azure-cosmos",
+    "spark-core-azurefunctions",
+    "spark-core-bedrock",
+    "spark-core-chatkit",
+    "spark-core-claude",
+    "spark-core-copilotstudio",
+    "spark-core-declarative",
+    "spark-core-devui",
+    "spark-core-durabletask",
+    "spark-core-foundry",
+    "spark-core-foundry-hosting",
+    "spark-core-foundry-local",
+    "spark-core-gemini",
+    "spark-core-github-copilot; python_version >= '3.11'",
+    "spark-core-hyperlight; ((sys_platform == 'linux' and platform_machine == 'x86_64') or (sys_platform == 'win32' and platform_machine == 'AMD64')) and python_version < '3.14'",
+    "spark-core-lab",
+    "spark-core-mem0",
+    "spark-core-mistral",
+    "spark-core-monty",
+    "spark-core-ollama",
+    "spark-core-openai",
+    "spark-core-orchestrations",
+    "spark-core-purview",
+    "spark-core-redis",
+    "spark-core-tools",
+]
+
+[dependency-groups]
+# These optional integrations depend on spark-core-core, so core cannot list them as
+# runtime dependencies. They are declared here so isolated source checks can resolve their APIs.
+dev = [
+    "azure-ai-agentserver-core>=2.0.0b7,<3",
+]
+
+[tool.uv]
+prerelease = "if-necessary-or-explicit"
+environments = [
+    "sys_platform == 'darwin'",
+    "sys_platform == 'linux'",
+    "sys_platform == 'win32'"
+]
+
+[tool.uv-dynamic-versioning]
+fallback-version = "0.0.0"
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+addopts = "-ra -q -r fEX"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = []
+timeout = 120
+markers = [
+    "integration: marks tests as integration tests that require external services",
+]
+
+[tool.coverage.run]
+omit = [
+    "**/__init__.py"
+]
+
+[tool.ruff]
+extend = "../../pyproject.toml"
+
+[tool.pyright]
+extends = "../../pyproject.toml"
+include = ["spark_core"]
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+strict = true
+incremental = false
+python_version = "3.10"
+ignore_missing_imports = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+show_error_codes = true
+warn_unused_ignores = false
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+
+[tool.bandit]
+targets = ["spark_core"]
+exclude_dirs = ["tests"]
+
+[tool.poe]
+executor.type = "uv"
+include = "../../shared_tasks.toml"
+
+[tool.poe.tasks.dependency-pyright]
+help = "Run Pyright over core implementation files for isolated dependency validation."
+cmd = "pyright --project pyrightconfig.dependency.json"
+
+[tool.poe.tasks.mypy]
+help = "Run MyPy for this package."
+cmd = "mypy --config-file $POE_ROOT/pyproject.toml spark_core"
+
+[tool.poe.tasks.test]
+help = "Run the default unit test suite for this package."
+cmd = 'pytest -m "not integration" --cov=spark_core --cov-report=term-missing:skip-covered -n auto --dist worksteal tests'
+
+[tool.flit.module]
+name = "spark_core"
+
+[build-system]
+requires = ["flit-core >= 3.11,<4.0"]
+build-backend = "flit_core.buildapi"

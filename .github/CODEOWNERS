@@ -1,0 +1,7 @@
+# Code ownership assignments
+# https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+python/packages/azurefunctions/ @microsoft/sparkcore-durabletask-developers
+python/packages/durabletask/ @microsoft/sparkcore-durabletask-developers
+python/samples/getting_started/azure_functions/ @microsoft/sparkcore-durabletask-developers
+python/samples/getting_started/durabletask/ @microsoft/sparkcore-durabletask-developers
