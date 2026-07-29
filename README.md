@@ -5,11 +5,7 @@ Spark Core is an open, multi-language framework for building **production-grade 
 Spark Core is built for teams taking agents from prototype to production. It provides a consistent foundation for building, orchestrating, and operating agent systems across Python and .NET, while keeping architecture choices open as requirements evolve, and supports a broad ecosystem including Microsoft Foundry, Azure OpenAI, OpenAI, and the GitHub Copilot SDK, with samples and hosting patterns for both local development and cloud deployment.
 
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=AAgdMhftj8w">
-    Watch the full Spark Core introduction (30 min)
-  </a>
-</p>
+
 
 ## Is this the right framework for you?
 
