@@ -463,5 +463,5 @@ explicit = true
 name = "spark_core_meta"
 
 [build-system]
-requires = ["flit-core >= 3.11,<4.0"]
+requires = ["flit-core>=4.0.2,<5.0"]
 build-backend = "flit_core.buildapi"
