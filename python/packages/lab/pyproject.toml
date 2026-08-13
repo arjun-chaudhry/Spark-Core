@@ -79,7 +79,7 @@ gaia_viewer = "spark_core_lab_gaia:viewer_main"
 lightning = "spark_core_lab_lightning:main"
 
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=84.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
