@@ -144,5 +144,5 @@ cmd = 'pytest -m "not integration" --cov=spark_core --cov-report=term-missing:sk
 name = "spark_core"
 
 [build-system]
-requires = ["flit-core >= 3.11,<4.0"]
+requires = ["flit-core>=3.11,<5.0"]
 build-backend = "flit_core.buildapi"
